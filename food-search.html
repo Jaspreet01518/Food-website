@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Food Delivery Website</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="css/font-awesome/css/font-awesome.css">
+    <!-- Hover CSS -->
+    <link rel="stylesheet" href="css/hover-min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- Navigation Section Start -->
+    <header class="navbar">
+        <nav id="site-top-nav" class="navbar-menu navbar-fixed-top">
+            <div class="container">
+                <div class="logo">
+                    <a href="index.html" title="Logo">
+                        <img src="img/logo.png" alt="Logo" class="img-responsive">
+                    </a>
+                </div>
+
+                <div class="menu text-right">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="categories.html">Categories</a></li>
+                        <li><a href="foods.html">Foods</a></li>
+                        <li><a href="order.html">Order</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="login.html">Login</a></li>
+                        <li>
+                            <a id="shopping-cart" class="shopping-cart">
+                                <i class="fa fa-cart-arrow-down"></i>
+                                <span id="cart-count" class="badge">0</span>
+                            </a>
+                            <div id="cart-content" class="cart-content" style="display:none;">
+                                <h3 class="text-center">Shopping Cart</h3>
+                                <table class="cart-table" border="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Food</th>
+                                            <th>Name</th>
+                                            <th>Price</th>
+                                            <th>Qty</th>
+                                            <th>Total</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="cart-body"></tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th colspan="4">Total</th>
+                                            <th id="cart-total">₹0</th>
+                                            <th></th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                                <button id="confirm-order" class="btn-primary">Confirm Order</button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- Navigation Section End -->
+
+
+    <!-- Food Search Section Start -->
+    <section class="food-search text-center">
+        <div class="container">
+            <input type="search" id="searchInput" placeholder="Search food..." style="padding:8px; width:60%; border-radius:5px;">
+            <button id="searchBtn" class="btn-primary">Search</button>
+        </div>
+    </section>
+    <!-- Food Search Section End -->
+
+
+    <!-- Foods Section Start -->
+    <section class="food-menu">
+        <div class="container">
+            <h2 class="text-center">Food Menu</h2>
+            <div class="heading-border"></div>
+            <div class="grid-2" id="foodList">
+
+                <div class="food-menu-box" data-name="Pizza">
+                    <div class="food-menu-img"><img src="img/food/p1.jpg" alt="Pizza" class="img-responsive img-curve"></div>
+                    <div class="food-menu-desc">
+                        <h4>Pizza</h4>
+                        <p class="food-price">₹120</p>
+                        <input type="number" value="1" min="1">
+                        <button class="btn-primary add-cart" data-name="Pizza" data-price="120" data-img="img/food/p1.jpg">Add To Cart</button>
+                    </div>
+                </div>
+
+                <div class="food-menu-box" data-name="Sandwich">
+                    <div class="food-menu-img"><img src="img/food/s1.jpg" alt="Sandwich" class="img-responsive img-curve"></div>
+                    <div class="food-menu-desc">
+                        <h4>Sandwich</h4>
+                        <p class="food-price">₹80</p>
+                        <input type="number" value="1" min="1">
+                        <button class="btn-primary add-cart" data-name="Sandwich" data-price="80" data-img="img/food/s1.jpg">Add To Cart</button>
+                    </div>
+                </div>
+
+                <div class="food-menu-box" data-name="Burger">
+                    <div class="food-menu-img"><img src="img/food/b1.jpg" alt="Burger" class="img-responsive img-curve"></div>
+                    <div class="food-menu-desc">
+                        <h4>Burger</h4>
+                        <p class="food-price">₹100</p>
+                        <input type="number" value="1" min="1">
+                        <button class="btn-primary add-cart" data-name="Burger" data-price="100" data-img="img/food/b1.jpg">Add To Cart</button>
+                    </div>
+                </div>
+
+                <div class="food-menu-box" data-name="Pasta">
+                    <div class="food-menu-img"><img src="img/food/p2.jpg" alt="Pasta" class="img-responsive img-curve"></div>
+                    <div class="food-menu-desc">
+                        <h4>Pasta</h4>
+                        <p class="food-price">₹90</p>
+                        <input type="number" value="1" min="1">
+                        <button class="btn-primary add-cart" data-name="Pasta" data-price="90" data-img="img/food/p2.jpg">Add To Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Foods Section End -->
+
+
+    <!-- Footer Section Start -->
+    <section class="footer">
+        <div class="container text-center">
+            <p>All rights reserved. Design By <a href="#">Code Arcade</a></p>
+        </div>
+    </section>
+    <!-- Footer Section End -->
+
+
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
+    <!-- Custom JS -->
+    <script>
+        const cart = [];
+        const cartContent = document.getElementById('cart-content');
+        const cartBody = document.getElementById('cart-body');
+        const cartTotal = document.getElementById('cart-total');
+        const cartCount = document.getElementById('cart-count');
+
+        // Toggle Cart View
+        document.getElementById('shopping-cart').addEventListener('click', () => {
+            cartContent.style.display = cartContent.style.display === 'none' ? 'block' : 'none';
+        });
+
+        // Add to Cart
+        document.querySelectorAll('.add-cart').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const name = this.dataset.name;
+                const price = parseInt(this.dataset.price);
+                const img = this.dataset.img;
+                const qty = parseInt(this.previousElementSibling.value);
+                const existing = cart.find(i => i.name === name);
+
+                if (existing) existing.qty += qty;
+                else cart.push({ name, price, qty, img });
+                updateCart();
+                alert(name + " added to cart!");
+            });
+        });
+
+        // Update Cart Display
+        function updateCart() {
+            cartBody.innerHTML = '';
+            let total = 0;
+            cart.forEach((item, i) => {
+                const row = document.createElement('tr');
+                const itemTotal = item.price * item.qty;
+                total += itemTotal;
+                row.innerHTML = `
+                    <td><img src="${item.img}" width="50"></td>
+                    <td>${item.name}</td>
+                    <td>₹${item.price}</td>
+                    <td>${item.qty}</td>
+                    <td>₹${itemTotal}</td>
+                    <td><a href="#" class="btn-delete" data-index="${i}">&times;</a></td>`;
+                cartBody.appendChild(row);
+            });
+            cartTotal.textContent = '₹' + total;
+            cartCount.textContent = cart.length;
+
+            document.querySelectorAll('.btn-delete').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const index = this.dataset.index;
+                    cart.splice(index, 1);
+                    updateCart();
+                });
+            });
+        }
+
+        // Confirm Order
+        document.getElementById('confirm-order').addEventListener('click', () => {
+            if (cart.length === 0) alert("Your cart is empty!");
+            else {
+                alert("🎉 Order placed successfully!");
+                cart.length = 0;
+                updateCart();
+                cartContent.style.display = 'none';
+            }
+        });
+
+        // ✅ Search Filter (Case-insensitive + Enter key)
+        function filterFoods() {
+            const term = document.getElementById('searchInput').value.trim().toLowerCase();
+            const items = document.querySelectorAll('.food-menu-box');
+            items.forEach(box => {
+                const name = box.dataset.name.toLowerCase();
+                box.style.display = name.includes(term) ? 'block' : 'none';
+            });
+        }
+
+        // Search button click
+        document.getElementById('searchBtn').addEventListener('click', filterFoods);
+
+        // Press Enter to search
+        document.getElementById('searchInput').addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') filterFoods();
+        });
+    </script>
+</body>
+</html>

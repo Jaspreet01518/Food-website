@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confirm Your Order | PB12wale</title>
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+  <!-- Fontawesome CSS -->
+  <link rel="stylesheet" href="css/font-awesome/css/font-awesome.css">
+  <!-- Hover CSS -->
+  <link rel="stylesheet" href="css/hover-min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body bgcolor="lightblue">
+  <!-- Navigation Section Start -->
+  <header class="navbar">
+    <nav id="site-top-nav" class="navbar-menu navbar-fixed-top">
+      <div class="container">
+        <div class="logo">
+          <a href="index.html" title="Logo">
+            <img src="img/logo.png" alt="Logo" class="img-responsive">
+          </a>
+        </div>
+        <div class="menu text-right">
+          <ul>
+            <li><a href="index.html" class="hvr-underline-from-center">Home</a></li>
+            <li><a href="categories.html" class="hvr-underline-from-center">Categories</a></li>
+            <li><a href="foods.html" class="hvr-underline-from-center">Foods</a></li>
+            <li><a href="order.html" class="hvr-underline-from-center">Order</a></li>
+            <li><a href="contact.html" class="hvr-underline-from-center">Contact</a></li>
+            <li><a href="login.html" class="hvr-underline-from-center">Login</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <!-- Navigation Section End -->
+
+  <!-- Order Section Start -->
+  <section class="order">
+    <div class="container">
+      <h2 class="text-center">Confirm Your Order</h2>
+
+      <table class="tbl-full" border="0" id="order-table">
+        <thead>
+          <tr>
+            <th>S.N.</th>
+            <th>Food</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Qty</th>
+            <th>Total</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="order-items">
+          <!-- Items will be added here by JS -->
+        </tbody>
+        <tfoot>
+          <tr>
+            <th colspan="5">Total</th>
+            <th id="order-total">₹0.00</th>
+            <th></th>
+          </tr>
+        </tfoot>
+      </table>
+
+      <form class="form" id="order-form">
+        <fieldset>
+          <legend>Delivery Details</legend>
+          <p class="label">Full Name</p>
+          <input type="text" id="cust-name" placeholder="Enter your name..." required>
+
+          <p class="label">Phone Number</p>
+          <input type="tel" id="cust-phone" placeholder="Enter your phone..." required>
+
+          <p class="label">Email</p>
+          <input type="email" id="cust-email" placeholder="Enter your email..." required>
+
+          <p class="label">Address</p>
+          <input type="text" id="cust-address" placeholder="Enter your address..." required>
+
+          <input type="submit" value="Confirm Order" class="btn-primary">
+        </fieldset>
+      </form>
+    </div>
+  </section>
+  <!-- Order Section End -->
+
+  <!-- Footer Section Start -->
+  <section class="footer">
+    <div class="container">
+      <div class="grid-3">
+        <div class="text-center">
+          <h3>About Us</h3><br>
+          <p>PB12wale delivers tasty meals quickly and safely to your doorstep — from snacks to full meals.</p>
+        </div>
+
+        <div class="text-center">
+          <h3>Site Map</h3><br>
+          <div class="site-links">
+            <a href="categories.html">Categories</a>
+            <a href="foods.html">Foods</a>
+            <a href="order.html">Order</a>
+            <a href="contact.html">Contact</a>
+            <a href="login.html">Login</a>
+          </div>
+        </div>
+
+        <div class="social-links">
+          <h3>Follow Us</h3><br>
+          <div class="social">
+            <ul>
+              <li><a href="#"><img src="https://img.icons8.com/color/48/facebook-new.png" /></a></li>
+              <li><a href="#"><img src="https://img.icons8.com/fluency/48/instagram-new.png" /></a></li>
+              <li><a href="#"><img src="https://img.icons8.com/color/48/twitter--v1.png" /></a></li>
+              <li><a href="#"><img src="https://img.icons8.com/color/48/linkedin-circled--v1.png" /></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Footer Section End -->
+
+  <!-- Copyright Section -->
+  <section class="copyright">
+    <div class="container text-center">
+      <p>All rights reserved © 2025 | Designed by <a href="#">PB12wale</a></p>
+    </div>
+  </section>
+
+  <!-- JQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script>
+    // Load cart data from localStorage
+    const orderItemsContainer = document.getElementById('order-items');
+    const orderTotal = document.getElementById('order-total');
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    function renderOrder() {
+      orderItemsContainer.innerHTML = '';
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        const itemTotal = item.price * item.qty;
+        total += itemTotal;
+
+        orderItemsContainer.innerHTML += `
+          <tr>
+            <td>${index + 1}</td>
+            <td><img src="${item.img}" alt="${item.name}" style="width:50px;height:50px;border-radius:50%;"></td>
+            <td>${item.name}</td>
+            <td>₹${item.price.toFixed(2)}</td>
+            <td>${item.qty}</td>
+            <td>₹${itemTotal.toFixed(2)}</td>
+            <td><a href="#" class="btn-delete" onclick="removeItem(${index})">&times;</a></td>
+          </tr>
+        `;
+      });
+
+      orderTotal.textContent = `₹${total.toFixed(2)}`;
+    }
+
+    function removeItem(index) {
+      cart.splice(index, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderOrder();
+    }
+
+    document.getElementById('order-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      if (cart.length === 0) {
+        alert('Your cart is empty!');
+        return;
+      }
+
+      alert('🎉 Order Successfully Placed!');
+      localStorage.removeItem('cart'); // clear cart after order
+      window.location.href = 'index.html'; // redirect to homepage
+    });
+
+    renderOrder();
+  </script>
+</body>
+</html>

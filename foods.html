@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Food Delivery Website</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="css/font-awesome/css/font-awesome.css">
+
+    <!-- Hover CSS -->
+    <link rel="stylesheet" href="css/hover-min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        body {
+            background-color: gold;
+        }
+        .cart-content {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background: #fff;
+            border: 1px solid #ccc;
+            width: 400px;
+            padding: 10px;
+            border-radius: 8px;
+            z-index: 1000;
+        }
+        .cart-content.active {
+            display: block;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table td, table th {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+        .btn-delete {
+            color: red;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .food-menu-box {
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Section Start -->
+    <header class="navbar">
+        <nav id="site-top-nav" class="navbar-menu navbar-fixed-top">
+            <div class="container">
+                <div class="logo">
+                    <a href="index.html" title="Logo">
+                        <img src="img/logo.png" alt="Logo" class="img-responsive">
+                    </a>
+                </div>
+
+                <div class="menu text-right">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="categories.html">Categories</a></li>
+                        <li><a href="foods.html">Foods</a></li>
+                        <li><a href="order.html">Order</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="login.html">Login</a></li>
+                        <li>
+                            <a id="shopping-cart" class="shopping-cart">
+                                <i class="fa fa-cart-arrow-down"></i>
+                                <span id="cart-count" class="badge">0</span>
+                            </a>
+                            <div id="cart-content" class="cart-content">
+                                <h3 class="text-center">🛒 Shopping Cart</h3>
+                                <table id="cart-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Food</th>
+                                            <th>Name</th>
+                                            <th>Price (₹)</th>
+                                            <th>Qty</th>
+                                            <th>Total (₹)</th>
+                                            <th>Remove</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                                <h4 class="text-center">Grand Total: ₹<span id="grand-total">0</span></h4>
+                                <button id="confirm-order" class="btn-primary">Confirm Order</button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- Navigation Section End -->
+
+    <!-- Foods Section Start -->
+    <section class="food-menu">
+        <div class="container">
+            <h2 class="text-center">🍕 Food Menu</h2>
+            <div class="grid-2">
+
+                <!-- Pizza -->
+                <div class="food-menu-box">
+                    <div class="food-menu-img">
+                        <img src="img/food/p1.jpg" alt="Pizza" class="img-responsive img-curve">
+                    </div>
+                    <div class="food-menu-desc">
+                        <h4>Pizza</h4>
+                        <p class="food-price">₹120</p>
+                        <p>Cheesy pizza with fresh toppings.</p>
+                        <input type="number" value="1" min="1" class="qty">
+                        <button class="btn-primary add-to-cart" data-name="Pizza" data-price="120" data-img="img/food/p1.jpg">Add To Cart</button>
+                    </div>
+                </div>
+
+                <!-- Sandwich -->
+                <div class="food-menu-box">
+                    <div class="food-menu-img">
+                        <img src="img/food/s1.jpg" alt="Sandwich" class="img-responsive img-curve">
+                    </div>
+                    <div class="food-menu-desc">
+                        <h4>Sandwich</h4>
+                        <p class="food-price">₹80</p>
+                        <p>Delicious vegetable sandwich.</p>
+                        <input type="number" value="1" min="1" class="qty">
+                        <button class="btn-primary add-to-cart" data-name="Sandwich" data-price="80" data-img="img/food/s1.jpg">Add To Cart</button>
+                    </div>
+                </div>
+
+                <!-- Burger -->
+                <div class="food-menu-box">
+                    <div class="food-menu-img">
+                        <img src="img/food/b1.jpg" alt="Burger" class="img-responsive img-curve">
+                    </div>
+                    <div class="food-menu-desc">
+                        <h4>Burger</h4>
+                        <p class="food-price">₹90</p>
+                        <p>Freshly made burger with crispy fries.</p>
+                        <input type="number" value="1" min="1" class="qty">
+                        <button class="btn-primary add-to-cart" data-name="Burger" data-price="90" data-img="img/food/b1.jpg">Add To Cart</button>
+                    </div>
+                </div>
+
+                <!-- Momos -->
+                <div class="food-menu-box">
+                    <div class="food-menu-img">
+                        <img src="https://tse1.mm.bing.net/th/id/OIP.-2NJ8yPsy5W-cXXUg3uWaAHaFj?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Momos" class="img-responsive img-curve">
+                    </div>
+                    <div class="food-menu-desc">
+                        <h4>Momos</h4>
+                        <p class="food-price">₹70</p>
+                        <p>Steamed dumplings with spicy chutney.</p>
+                        <input type="number" value="1" min="1" class="qty">
+                        <button class="btn-primary add-to-cart" data-name="Momos" data-price="70" data-img="img/food/momos.jpg">Add To Cart</button>
+                    </div>
+                </div>
+
+                <!-- Chowmein -->
+                <div class="food-menu-box">
+                    <div class="food-menu-img">
+                        <img src="https://i.pinimg.com/originals/70/1e/2b/701e2b8d8bfe0d83a8403daaeff42452.jpg" alt="Chowmein" class="img-responsive img-curve">
+                    </div>
+                    <div class="food-menu-desc">
+                        <h4>Chowmein</h4>
+                        <p class="food-price">₹100</p>
+                        <p>Spicy Hakka noodles with veggies.</p>
+                        <input type="number" value="1" min="1" class="qty">
+                        <button class="btn-primary add-to-cart" data-name="Chowmein" data-price="100" data-img="img/food/chowmein.jpg">Add To Cart</button>
+                    </div>
+                </div>
+
+                <!-- Fries -->
+                <div class="food-menu-box">
+                    <div class="food-menu-img">
+                        <img src="https://tse4.mm.bing.net/th/id/OIP.SD8c6qkSJUIy9DWMLEjRNQHaF7?w=800&h=640&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Fries" class="img-responsive img-curve">
+                    </div>
+                    <div class="food-menu-desc">
+                        <h4>Fries</h4>
+                        <p class="food-price">₹60</p>
+                        <p>Crispy golden french fries.</p>
+                        <input type="number" value="1" min="1" class="qty">
+                        <button class="btn-primary add-to-cart" data-name="Fries" data-price="60" data-img="img/food/fries.jpg">Add To Cart</button>
+                    </div>
+                </div>
+
+                <!-- Coffee -->
+                <div class="food-menu-box">
+                    <div class="food-menu-img">
+                        <img src="https://tse4.mm.bing.net/th/id/OIP.ZSbPEYHoWdEX7a0Pzf9o0QHaHa?w=626&h=626&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Coffee" class="img-responsive img-curve">
+                    </div>
+                    <div class="food-menu-desc">
+                        <h4>Coffee</h4>
+                        <p class="food-price">₹50</p>
+                        <p>Hot and fresh brewed coffee.</p>
+                        <input type="number" value="1" min="1" class="qty">
+                        <button class="btn-primary add-to-cart" data-name="Coffee" data-price="50" data-img="img/food/coffee.jpg">Add To Cart</button>
+                    </div>
+                </div>
+
+                <!-- Ice Cream -->
+                <div class="food-menu-box">
+                    <div class="food-menu-img">
+                        <img src="https://img.lovepik.com/photo/48013/1949.jpg_wh300.jpg" alt="Ice Cream" class="img-responsive img-curve">
+                    </div>
+                    <div class="food-menu-desc">
+                        <h4>Ice Cream</h4>
+                        <p class="food-price">₹70</p>
+                        <p>Chilled vanilla and chocolate ice cream.</p>
+                        <input type="number" value="1" min="1" class="qty">
+                        <button class="btn-primary add-to-cart" data-name="Ice Cream" data-price="70" data-img="img/food/icecream.jpg">Add To Cart</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- Foods Section End -->
+
+    <!-- Footer -->
+    <section class="footer text-center">
+        <p>All rights reserved © 2025 | Designed by <b>Code Arcade</b></p>
+    </section>
+
+    <!-- Script -->
+    <script>
+        const cart = [];
+        const cartContent = document.getElementById('cart-content');
+        const cartCount = document.getElementById('cart-count');
+        const cartTable = document.querySelector('#cart-table tbody');
+        const grandTotal = document.getElementById('grand-total');
+
+        document.getElementById('shopping-cart').addEventListener('click', () => {
+            cartContent.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                const name = this.dataset.name;
+                const price = parseInt(this.dataset.price);
+                const img = this.dataset.img;
+                const qty = parseInt(this.parentElement.querySelector('.qty').value);
+
+                const existing = cart.find(item => item.name === name);
+                if (existing) {
+                    existing.qty += qty;
+                } else {
+                    cart.push({ name, price, img, qty });
+                }
+
+                updateCart();
+                alert(name + " added to cart!");
+            });
+        });
+
+        function updateCart() {
+            cartTable.innerHTML = "";
+            let total = 0;
+            cart.forEach((item, index) => {
+                const itemTotal = item.price * item.qty;
+                total += itemTotal;
+                const row = `
+                    <tr>
+                        <td><img src="${item.img}" width="50"></td>
+                        <td>${item.name}</td>
+                        <td>${item.price}</td>
+                        <td>${item.qty}</td>
+                        <td>${itemTotal}</td>
+                        <td><a href="#" class="btn-delete" data-index="${index}">&times;</a></td>
+                    </tr>`;
+                cartTable.innerHTML += row;
+            });
+
+            grandTotal.textContent = total;
+            cartCount.textContent = cart.length;
+
+            document.querySelectorAll('.btn-delete').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const index = this.dataset.index;
+                    cart.splice(index, 1);
+                    updateCart();
+                });
+            });
+        }
+
+        document.getElementById('confirm-order').addEventListener('click', () => {
+            if (cart.length === 0) {
+                alert("Your cart is empty!");
+            } else {
+                alert("🎉 Order placed successfully!");
+                cart.length = 0;
+                updateCart();
+                cartContent.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

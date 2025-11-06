@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pizza Category | PB12wale</title>
+  <link rel="stylesheet" href="css/font-awesome/css/font-awesome.css" />
+  <link rel="stylesheet" href="css/hover-min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body bgcolor="gold">
+  <!-- Navigation Section Start -->
+  <header class="navbar">
+    <nav id="site-top-nav" class="navbar-menu navbar-fixed-top">
+      <div class="container">
+        <div class="logo">
+          <a href="index.html" title="Logo">
+            <img src="img/logo.png" alt="Logo" class="img-responsive" />
+          </a>
+        </div>
+        <div class="menu text-right">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="categories.html">Categories</a></li>
+            <li><a href="foods.html">Foods</a></li>
+            <li><a href="order.html">Order</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li>
+              <a id="shopping-cart" class="shopping-cart">
+                <i class="fa fa-cart-arrow-down"></i>
+                <span id="cart-count" class="badge">0</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <!-- Navigation Section End -->
+
+  <!-- Food Search Section -->
+  <section class="food-search text-center">
+    <div class="container">
+      <h2 style="background: #44bd32;">Foods in <a href="#" class="text-white">"Pizza"</a></h2>
+    </div>
+  </section>
+
+  <!-- Foods Section Start -->
+  <section class="food-menu">
+    <div class="container">
+      <h2 class="text-center">Pizza Menu</h2>
+      <div class="heading-border"></div>
+
+      <div class="grid-2">
+        <div class="food-menu-box">
+          <div class="food-menu-img">
+            <img src="img/food/p1.jpg" alt="Pizza" class="img-responsive img-curve" />
+          </div>
+          <div class="food-menu-desc">
+            <h4>Cheese Pizza</h4>
+            <p class="food-price">₹199.00</p>
+            <p class="food-details">Delicious cheese topping with crispy base.</p>
+            <input type="number" value="1" min="1" class="qty-input" />
+            <button class="btn-primary add-to-cart">Add To Cart</button>
+          </div>
+        </div>
+
+        <div class="food-menu-box">
+          <div class="food-menu-img">
+            <img src="img/food/p2.jpg" alt="Pizza" class="img-responsive img-curve" />
+          </div>
+          <div class="food-menu-desc">
+            <h4>Veg Pizza</h4>
+            <p class="food-price">₹249.00</p>
+            <p class="food-details">Topped with fresh veggies and cheese.</p>
+            <input type="number" value="1" min="1" class="qty-input" />
+            <button class="btn-primary add-to-cart">Add To Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
+  <!-- Working Add to Cart JS -->
+  <script>
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    function updateCartCount() {
+      document.getElementById("cart-count").textContent = cart.length;
+    }
+
+    function addToCart(name, price, img, qty) {
+      const item = { name, price, img, qty: parseInt(qty) };
+      cart.push(item);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCartCount();
+      alert(name + " added to cart successfully!");
+    }
+
+    document.querySelectorAll(".add-to-cart").forEach((btn) => {
+      btn.addEventListener("click", function () {
+        const parent = this.closest(".food-menu-box");
+        const name = parent.querySelector("h4").textContent;
+        const price = parseFloat(
+          parent.querySelector(".food-price").textContent.replace("₹", "")
+        );
+        const img = parent.querySelector("img").src;
+        const qty = parent.querySelector(".qty-input").value;
+        addToCart(name, price, img, qty);
+      });
+    });
+
+    updateCartCount();
+  </script>
+</body>
+</html>
